@@ -11,3 +11,10 @@ tasks:
       echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
       sudo apt update
       sudo apt-get install terraform
+  
+  - name: Install terragrunt
+    init: |
+      cd /workspace
+      wget https://github.com/gruntwork-io/terragrunt/releases/download/v0.44.4/terragrunt_linux_amd64
+      sudo mv terragrunt_linux_amd64 /usr/local/bin/terragrunt
+      sudo chmod u+x /usr/local/bin/terragrunt
