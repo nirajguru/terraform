@@ -1,3 +1,10 @@
+terraform {
+  backend "s3" {
+    bucket = "terraform-state-niraj"
+    key    = "march2023/terraform.tfstate"
+    region = "us-east-1"
+  }
+}
 module "vpc" {
   source = "terraform-aws-modules/vpc/aws"
 
@@ -17,37 +24,3 @@ module "vpc" {
   }
 }
 
-
-module "tgw" {
-  source  = "terraform-aws-modules/transit-gateway/aws"
-  version = "~> 2.0"
-
-  name        = "niraj-tgw"
-  description = "My TGW shared with several other AWS accounts"
-
-  enable_auto_accept_shared_attachments = true
-
-  vpc_attachments = {
-    vpc = {
-      vpc_id       = module.vpc.vpc_id
-      subnet_ids   = module.vpc.private_subnets
-      dns_support  = true
-      ipv6_support = false
-
-      tgw_routes = [
-        {
-          destination_cidr_block = "30.0.0.0/16"
-        },
-        {
-          blackhole = true
-          destination_cidr_block = "40.0.0.0/20"
-        }
-      ]
-    }
-  }
-
-
-  tags = {
-    Purpose = "tgw-complete-example"
-  }
-}
