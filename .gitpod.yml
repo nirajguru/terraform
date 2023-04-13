@@ -4,6 +4,20 @@ vscode:
     - hashicorp.terraform
 
 tasks:
+  - name: install aws cli
+    # change working directory 
+    before: |
+      cd /workspace
+    init: |
+      echo "installing aws cli"
+    command: |
+      curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+      unzip awscliv2.zip
+      sudo ./aws/install
+      sudo ./aws/install --bin-dir /usr/local/bin --install-dir /usr/local/aws-cli --update
+      rm -rf aws awscliv2.zip
+      complete -C '/usr/local/bin/aws_completer' aws
+      
   - name: Install terraform
     init: |
       sudo apt-get update && sudo apt-get install -y gnupg software-properties-common
