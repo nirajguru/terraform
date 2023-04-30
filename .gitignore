@@ -1,3 +1,2 @@
-aws/vpc/.terraform
-aws/vpc/.terraform.lock*
-aws/vpc/terraform.*
+aws/us-east-1/eks/iam/.terraform
+aws/us-east-1/eks/iam/.terraform.lock.hcl
