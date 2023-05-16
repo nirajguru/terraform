@@ -16,10 +16,14 @@ resource "aws_iam_role" "eks_role" {
       },
     ]
   })
-  managed_policy_arns = "arn:aws:iam:525352990358:aws:policy/AmazonEKSClusterPolicy"
+  #managed_policy_arns = "arn:aws:iam:525352990358:aws:policy/AmazonEKSClusterPolicy"
 
   tags = {
     name = "eks-assume-role-niraj",
     project = "trying-eks-terraform"
   }
+}
+
+output "role_arn" {
+  value =   aws_iam_role.eks_role.arn
 }
